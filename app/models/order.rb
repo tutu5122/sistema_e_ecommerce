@@ -8,6 +8,14 @@ class Order < ApplicationRecord
 
   before_create -> { generate_number(hash_prefix, hash_size) }
 
+  def add_product(product_id, quantity)
+    product = Product.find(product_id)
+
+    if product && (product.stock > 0) && (product.stock >= quantity)
+      self.order_items.create(product: product, quantity: quantity, price: product.price)
+    end
+  end
+
   def generate_number(prefix, size)
     self.number ||= loop do
       random = random_candidate(prefix, size)
