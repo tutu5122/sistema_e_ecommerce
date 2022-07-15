@@ -1,18 +1,18 @@
 class Order < ApplicationRecord
   belongs_to :user
-
   has_many :order_items
   has_many :products, through: :order_items, dependent: :destroy
 
-  enum state: %i[]
-
   before_create -> { generate_number(hash_prefix, hash_size) }
+
+  enum state: %i[ created ]
 
   def add_product(product_id, quantity)
     product = Product.find(product_id)
 
-    if product && (product.stock > 0) && (product.stock >= quantity)
+    if product && (product.stock > 0) && (product.stock >= quantity.to_i)
       self.order_items.create(product: product, quantity: quantity, price: product.price)
+      update_total
     end
   end
 
@@ -33,5 +33,10 @@ class Order < ApplicationRecord
 
   def hash_size
     9
+  end
+
+  def update_total
+    current_total = self.order_items.map { |item| item.price * item.quantity }.sum
+    update_attribute(:total, current_total)
   end
 end

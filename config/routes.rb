@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'carts/update'
-  get 'carts/show'
   get 'home/index'
+
+  resource :cart, only: %i[ update show ]
 
   devise_for :users
   devise_for :admins
