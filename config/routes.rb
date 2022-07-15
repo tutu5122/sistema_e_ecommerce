@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'carts/update'
+  get 'carts/show'
   get 'home/index'
 
   devise_for :users
