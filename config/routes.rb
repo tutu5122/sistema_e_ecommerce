@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :variants
   resources :sizes
   resources :labels
   resources :colors
