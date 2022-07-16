@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :colors
   get 'home/index'
 
   resource :cart, only: %i[ update show ]
