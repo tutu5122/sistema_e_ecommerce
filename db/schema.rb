@@ -70,8 +70,7 @@ ActiveRecord::Schema.define(version: 2022_07_16_003256) do
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
-    t.integer "stock", default: 0
-    t.decimal "price"
+    t.decimal "price", default: "0.0"
     t.string "sku"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
