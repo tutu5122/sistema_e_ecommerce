@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :sizes
+  resources :labels
   resources :colors
   get 'home/index'
 
